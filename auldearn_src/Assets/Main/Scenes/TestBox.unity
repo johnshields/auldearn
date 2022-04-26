@@ -290,9 +290,10 @@ GameObject:
   m_Component:
   - component: {fileID: 679403492}
   - component: {fileID: 679403493}
+  - component: {fileID: 679403494}
   m_Layer: 0
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: BossFists
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -324,6 +325,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.588064, y: 1.3170106, z: 1.5489802}
   m_Center: {x: 0.025373578, y: -0.30609763, z: -0.0066912174}
+--- !u!114 &679403494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679403491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d993c022a57ae4b9efaffa4ee71046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1308020253
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,12 +542,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449414112}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 2108396331}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1561426879
 GameObject:
@@ -546,9 +559,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1561426880}
   - component: {fileID: 1561426881}
+  - component: {fileID: 1561426882}
   m_Layer: 0
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: BossFists
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -580,6 +594,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.281713, y: 1.5078701, z: 1.5284295}
   m_Center: {x: -0.0088944435, y: -0.07452935, z: 0.08366513}
+--- !u!114 &1561426882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561426879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d993c022a57ae4b9efaffa4ee71046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1594145936
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +648,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2108396330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2108396331}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2108396331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108396330}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1449414116}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9171100502442963
 GameObject:
@@ -943,7 +1000,7 @@ GameObject:
   - component: {fileID: 919132147805903803}
   m_Layer: 0
   m_Name: golem
-  m_TagString: Untagged
+  m_TagString: BossTorso
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1011,7 +1068,7 @@ GameObject:
   - component: {fileID: 919132148819496540}
   m_Layer: 0
   m_Name: great_sword
-  m_TagString: Untagged
+  m_TagString: PlayerSword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1056,7 +1113,7 @@ GameObject:
   - component: {fileID: 919132149111664765}
   m_Layer: 0
   m_Name: knight
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1091,8 +1148,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0727257, y: 2.2564673, z: 1.0272474}
-  m_Center: {x: 0.0028443933, y: 1.1301749, z: 0.10863352}
+  m_Size: {x: 1.0727257, y: 2.2564673, z: 0.90168}
+  m_Center: {x: 0.0028443933, y: 1.1301749, z: 0.0458498}
 --- !u!114 &919132149111664766
 MonoBehaviour:
   m_ObjectHideFlags: 0

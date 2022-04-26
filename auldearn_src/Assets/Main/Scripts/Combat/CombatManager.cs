@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    public static int playerHealth = 30;
-    public static int bossHealth = 50;
+    public static int playerHealth = 3;
+    public static int bossHealth = 5;
     
     private void Update()
     {
