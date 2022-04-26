@@ -12,7 +12,7 @@ public class BossProfiler : MonoBehaviour
     public Transform player;
     public LayerMask groundMask, playerMask;
 
-    // p atrolling
+    // patrolling
     public Vector3 walkPoint;
     private bool _walkPointSet;
     public float walkPointRange;
@@ -47,13 +47,13 @@ public class BossProfiler : MonoBehaviour
         if (playerInAttackRange && playerInSightRange) AttackMode();
     }
 
-    private void AnimationState(bool idle, bool walk, bool run, bool left, bool right, bool death)
+    private void AnimationState(bool idle, bool walk, bool run, bool leftP, bool rightP, bool death)
     {
         _animator.SetBool(_idle, idle);
         _animator.SetBool(_walk, walk);
         _animator.SetBool(_run, run);
-        _animator.SetBool(_leftA, left);
-        _animator.SetBool(_rightA, right);
+        _animator.SetBool(_leftA, leftP);
+        _animator.SetBool(_rightA, rightP);
         _animator.SetBool(_death, death);
     }
 
@@ -113,9 +113,11 @@ public class BossProfiler : MonoBehaviour
             {
                 // attack
                 case 0:
+                    print("Left punch...");
                     AnimationState(false, false, false, true, false, false);
                     break;
                 case 1:
+                    print("Right punch...");
                     AnimationState(false, false, false, false, true, false);
                     break;
             }
