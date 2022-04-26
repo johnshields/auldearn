@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerProfiler : MonoBehaviour
 {
-    public float lowProfile, highProfile, rotationSpeed;
-    private float _currentProfile;
     private int _idleActive, _walkActive, _runActive;
+    private GameObject _player;
     private Animator _animator;
 
     private void Start()
     {
+        foreach (var t in Gamepad.all) 
+            Debug.Log(t.name);
+        
+        _player = GameObject.Find("Player/knight");
         _animator = GetComponent<Animator>();
-
         _idleActive = Animator.StringToHash("IdleActive");
         _walkActive = Animator.StringToHash("WalkActive");
         _runActive = Animator.StringToHash("RunActive");
@@ -21,7 +24,7 @@ public class PlayerProfiler : MonoBehaviour
         MainProfiles();
     }
 
-    private void AnimationState(bool idle, bool walk, bool run, bool attack)
+    private void AnimationState(bool idle, bool walk, bool run)
     {
         _animator.SetBool(_idleActive, idle);
         _animator.SetBool(_walkActive, walk);
@@ -30,34 +33,37 @@ public class PlayerProfiler : MonoBehaviour
 
     private void MainProfiles()
     {
-        // allow character to walk (using y axis keys).
-        var z = Input.GetAxis("Vertical") * _currentProfile;
-        transform.Translate(0, 0, z);
-        // allow character to rotate (using y axis keys).
-        var y = Input.GetAxis("Horizontal") * rotationSpeed;
-        transform.Rotate(0, y, 0);
-
-        var forwardPressed = Input.GetKey(KeyCode.W);
-        var upArrow = Input.GetKey(KeyCode.UpArrow);
-        var hpPressed = Input.GetKey(KeyCode.LeftShift);
-
-        if (!hpPressed)
+        if (Gamepad.all.Count > 0)
         {
-            if (forwardPressed || upArrow)
-                AnimationState(false, true, false, false); // walk
+            if (Gamepad.all[0].leftStick.up.isPressed)
+            {
+                AnimationState(false, true, false); // walk
+                _player.transform.position += Vector3.forward * Time.deltaTime * 3f;
+            }
+            else if (Gamepad.all[0].leftStick.down.isPressed)
+            {
+                AnimationState(false, true, false); // walk
+                _player.transform.position += Vector3.back * Time.deltaTime * 3f;
+            }
+            else if (Gamepad.all[0].leftStick.left.isPressed)
+            {
+                AnimationState(false, true, false); // walk
+                _player.transform.position += Vector3.left * Time.deltaTime * 3f;
+            }
+            else if (Gamepad.all[0].leftStick.right.isPressed)
+            {
+                AnimationState(false, true, false); // walk
+                _player.transform.position += Vector3.right * Time.deltaTime * 3f;
+            }
+            else if (Gamepad.all[0].aButton.isPressed)
+            {
+                AnimationState(false, false, true); // run
+                _player.transform.position += Vector3.forward * Time.deltaTime * 6f;
+            }
             else
-                AnimationState(true, false, false, false); // idle
-
-            _currentProfile = lowProfile;
-        }
-        else
-        {
-            if (forwardPressed || upArrow)
-                AnimationState(false, false, true, false); // run
-            else
-                AnimationState(true, false, false, false); // idle
-
-            _currentProfile = highProfile;
+            {
+                AnimationState(true, false, false); // idle
+            }
         }
     }
 }
