@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -5,22 +6,21 @@ using Random = UnityEngine.Random;
 // Ref: https://youtu.be/UjkSFoLxesw
 public class BossProfiler : MonoBehaviour
 {
-    private static int _idle, _walk, _run, _death;
+    private static int _idle, _walk, _run, _death, _leftA, _rightA;
     private static Animator _animator;
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask groundMask, playerMask;
 
-    //Patrolling
+    // p atrolling
     public Vector3 walkPoint;
     private bool _walkPointSet;
     public float walkPointRange;
 
-    //Attacking
-    public float timeBetweenAttacks;
-    bool _alreadyAttacked;
+    // attacking
+    private bool _alreadyAttacked;
 
-    //States
+    // states
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
@@ -33,6 +33,8 @@ public class BossProfiler : MonoBehaviour
         _walk = Animator.StringToHash("WalkActive");
         _run = Animator.StringToHash("RunActive");
         _death = Animator.StringToHash("Death");
+        _leftA = Animator.StringToHash("LeftP");
+        _rightA = Animator.StringToHash("RightP");
     }
 
     private void Update()
@@ -45,6 +47,16 @@ public class BossProfiler : MonoBehaviour
         if (playerInAttackRange && playerInSightRange) AttackMode();
     }
 
+    private void AnimationState(bool idle, bool walk, bool run, bool left, bool right, bool death)
+    {
+        _animator.SetBool(_idle, idle);
+        _animator.SetBool(_walk, walk);
+        _animator.SetBool(_run, run);
+        _animator.SetBool(_leftA, left);
+        _animator.SetBool(_rightA, right);
+        _animator.SetBool(_death, death);
+    }
+
     private void Patrolling()
     {
         print("Patrol");
@@ -53,9 +65,7 @@ public class BossProfiler : MonoBehaviour
         if (_walkPointSet)
         {
             agent.SetDestination(walkPoint);
-            _animator.SetBool(_idle, false);
-            _animator.SetBool(_walk, true);
-            _animator.SetBool(_run, false);
+            AnimationState(false, true, false, false, false, false);
         }
 
         var distanceToWalkPoint = transform.position - walkPoint;
@@ -83,32 +93,41 @@ public class BossProfiler : MonoBehaviour
     private void ChasePlayer()
     {
         print("Chase");
-        _animator.SetBool(_idle, false);
-        _animator.SetBool(_walk, false);
-        _animator.SetBool(_run, true);
+        AnimationState(false, false, true, false, false, false);
         agent.SetDestination(player.position);
     }
 
     private void AttackMode()
     {
+        var attackBool = Random.Range(0, 2);
         print("Attack");
         // Boss does not move and looks at player.
         agent.SetDestination(transform.position);
         transform.LookAt(player);
-        _animator.SetBool(_idle, true);
-        _animator.SetBool(_walk, false);
-        _animator.SetBool(_run, false);
-        
+        AnimationState(true, false, false, false, false, false);
+
         if (!_alreadyAttacked)
         {
-            // attack
+            print("attackBool: " + attackBool);
+            switch (attackBool)
+            {
+                // attack
+                case 0:
+                    AnimationState(false, false, false, true, false, false);
+                    break;
+                case 1:
+                    AnimationState(false, false, false, false, true, false);
+                    break;
+            }
+
+            StartCoroutine(ResetAttack());
             _alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
 
-    private void ResetAttack()
+    private IEnumerator ResetAttack()
     {
+        yield return new WaitForSeconds(2);
         _alreadyAttacked = false;
     }
 

@@ -1173,10 +1173,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
-  timeBetweenAttacks: 0.5
+  walkPointRange: 15
+  timeBetweenAttacks: 2
   sightRange: 20
-  attackRange: 12
+  attackRange: 5
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!195 &919132147805903806
