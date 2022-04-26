@@ -7,6 +7,7 @@ public class PlayerProfiler : MonoBehaviour
     private int _rightAttack, _leftAttack, _dodge;
     private GameObject _player;
     private Animator _animator;
+    private Vector2 _aim;
 
     private void Start()
     {
@@ -57,7 +58,7 @@ public class PlayerProfiler : MonoBehaviour
         else if (Gamepad.all[0].leftStick.down.isPressed)
         {
             AnimationState(false, false, false, false, false, true, false, false, false); // back
-            _player.transform.position += Vector3.back * Time.deltaTime * 3f;
+            _player.transform.position += Vector3.back * Time.deltaTime * 2f;
         }
         else if (Gamepad.all[0].leftStick.left.isPressed)
         {
@@ -95,7 +96,6 @@ public class PlayerProfiler : MonoBehaviour
         else if (Gamepad.all[0].xButton.isPressed)
         {
             AnimationState(false, false, false, false, false, false, false, false, true); // dodge
-            print("Dodge...");
             _player.transform.position += Vector3.back * Time.deltaTime * 2f;
         }
     }
