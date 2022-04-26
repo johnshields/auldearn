@@ -1,8 +1,29 @@
 fileFormatVersion: 2
-guid: b790c9afbfd6f1b4e88a9251d012e7f0
+guid: d93255dc12506b64695b07305a538c11
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
+  - first:
+      74: 7943539667693815202
+    second: cavaleiro|idle
+  - first:
+      74: 6577225254332035650
+    second: cavaleiro|Nothing1
+  - first:
+      74: -4806082799742338632
+    second: cavaleiro|Nothing2
+  - first:
+      74: 4849139816914315138
+    second: cavaleiro|Nothing3
+  - first:
+      74: 1251108242320842030
+    second: cavaleiro|Nothing4
+  - first:
+      74: -1441427235819481621
+    second: cavaleiro|Nothing5
+  - first:
+      74: -7718569582333437026
+    second: cavaleiro|Nothing6
   - first:
       74: -203655887218126122
     second: mixamo.com
