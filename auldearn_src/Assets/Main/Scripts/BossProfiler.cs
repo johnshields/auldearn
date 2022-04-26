@@ -1,16 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BossProfiler : MonoBehaviour
 {
+    private static int _death;
+    private static Animator _animator;
+
     private void Start()
     {
-        
+        _animator = GetComponent<Animator>();
+        _death = Animator.StringToHash("Death");
     }
 
-    private void Update()
+    public static void Death()
     {
-        
+        _animator.SetBool(_death, true);
     }
 }
