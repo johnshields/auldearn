@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +25,7 @@ public class PlayerProfiler : MonoBehaviour
         _leftAttack = Animator.StringToHash("LeftAttack");
         _rightAttack = Animator.StringToHash("RightAttack");
         _dodge = Animator.StringToHash("Dodge");
-        _death = Animator.StringToHash("Death");
+        _death = Animator.StringToHash("Die");
     }
 
     private void FixedUpdate()
@@ -84,6 +85,7 @@ public class PlayerProfiler : MonoBehaviour
 
     private void CombatProfile()
     {
+        if (Gamepad.all.Count <= 0) return;
         if (Gamepad.all[0].leftTrigger.isPressed)
         {
             AnimationState(false, false, false, false, false, false, true, false, false, false); // left
@@ -99,10 +101,21 @@ public class PlayerProfiler : MonoBehaviour
             AnimationState(false, false, false, false, false, false, false, false, true, false); // dodge
             _player.transform.position += Vector3.back * Time.deltaTime * 2f;
         }
-
+        
         if (CombatManager.playerHealth <= 0)
         {
-            AnimationState(false, false, false, false, false, false, false, false, false, true);
+            // to transition to death...
+            AnimationState(true, false, false, false, false, false, false, false, false, false);
+            StartCoroutine(Wait());
         }
+    }
+
+    private IEnumerator Wait()
+    {
+        // kill player and disable Profiler.
+        yield return new WaitForSeconds(0.1f);
+        AnimationState(false, false, false, false, false, false, false, false, false, true);
+        yield return new WaitForSeconds(0.2f);
+        _player.GetComponent<PlayerProfiler>().enabled = false;
     }
 }
