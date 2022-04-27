@@ -38,6 +38,7 @@ public class CombatManager : MonoBehaviour
         panel.SetActive(true);
         yield return new WaitForSeconds(5f);
         btnOptions.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     private void OnGUI()

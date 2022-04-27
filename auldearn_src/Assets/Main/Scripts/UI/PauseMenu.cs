@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     private static bool _paused;
-    public GameObject menu;
+    public GameObject menu, healthCounters;
 
     private void Awake()
     {
@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
         AudioListener.volume = 0f;
         _paused = true;
         menu.SetActive(true);
+        healthCounters.SetActive(false);
     }
 
     public void ResumeGame()
@@ -40,6 +41,7 @@ public class PauseMenu : MonoBehaviour
         AudioListener.volume = 1f;
         _paused = false;
         menu.SetActive(false);
+        healthCounters.SetActive(true);
     }
     
     public void Restart()
