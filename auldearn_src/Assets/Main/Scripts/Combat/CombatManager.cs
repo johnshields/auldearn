@@ -11,6 +11,7 @@ public class CombatManager : MonoBehaviour
     private GameObject _pHealthUI, _bHealthUI;
     public GameObject victoryPanel, defeatPanel;
     public GameObject btnOptions;
+    public static bool gameOver;
 
     private void Start()
     {
@@ -37,6 +38,7 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(4f);
         panel.SetActive(true);
         yield return new WaitForSeconds(5f);
+        gameOver = true;
         btnOptions.SetActive(true);
         Time.timeScale = 0f;
     }

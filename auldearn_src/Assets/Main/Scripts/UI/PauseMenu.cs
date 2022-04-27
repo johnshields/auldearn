@@ -15,11 +15,20 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
+        var b = Gamepad.all[0].bButton.isPressed;
         // if start pressed pause game else resume.
         if (Gamepad.all[0].startButton.isPressed && !_paused)
             PauseGame();
         else if (Gamepad.all[0].aButton.isPressed && _paused)
             ResumeGame();
+        else if (b && _paused || b && CombatManager.gameOver)
+        {
+            SceneManager.LoadScene("01_MainMenu");
+        }
+        if (Gamepad.all[0].xButton.isPressed && CombatManager.gameOver)
+        {
+            SceneManager.LoadScene("TestBox");
+        }
     }
 
     private void PauseGame()
@@ -42,16 +51,5 @@ public class PauseMenu : MonoBehaviour
         _paused = false;
         menu.SetActive(false);
         healthCounters.SetActive(true);
-    }
-    
-    public void Restart()
-    {
-        SceneManager.LoadScene("TestBox");
-    }
-
-    public void MainMenu()
-    {
-        SceneManager.LoadScene("01_MainMenu");
-        _paused = false;
     }
 }

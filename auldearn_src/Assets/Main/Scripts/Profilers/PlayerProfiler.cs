@@ -12,9 +12,6 @@ public class PlayerProfiler : MonoBehaviour
 
     private void Start()
     {
-        foreach (var t in Gamepad.all)
-            Debug.Log(t.name);
-
         _player = GameObject.Find("Player/knight");
         _animator = GetComponent<Animator>();
         _idleActive = Animator.StringToHash("IdleActive");
