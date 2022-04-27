@@ -41,6 +41,11 @@ public class PauseMenu : MonoBehaviour
         _paused = false;
         menu.SetActive(false);
     }
+    
+    public void Restart()
+    {
+        SceneManager.LoadScene("TestBox");
+    }
 
     public void MainMenu()
     {
