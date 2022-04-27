@@ -99,8 +99,7 @@ public class BossProfiler : MonoBehaviour
 
     private void AttackMode()
     {
-        var attackBool = Random.Range(0, 2);
-        print("Attack");
+        print("Boss is in: AttackMode");
         // Boss does not move and looks at player.
         agent.SetDestination(transform.position);
         transform.LookAt(player);
@@ -108,6 +107,7 @@ public class BossProfiler : MonoBehaviour
 
         if (!_alreadyAttacked)
         {
+            var attackBool = Random.Range(0, 2);
             print("attackBool: " + attackBool);
             switch (attackBool)
             {
@@ -115,22 +115,31 @@ public class BossProfiler : MonoBehaviour
                 case 0:
                     print("Left punch...");
                     AnimationState(false, false, false, true, false, false);
+                    StartCoroutine(AttackComplete());
                     break;
                 case 1:
                     print("Right punch...");
                     AnimationState(false, false, false, false, true, false);
+                    StartCoroutine(AttackComplete());
                     break;
             }
 
-            StartCoroutine(ResetAttack());
-            _alreadyAttacked = true;
+            print("Attack complete...");
         }
+    }
+
+    private IEnumerator AttackComplete()
+    {
+        yield return new WaitForSeconds(1.28f);
+        _alreadyAttacked = true;
+        StartCoroutine(ResetAttack());
     }
 
     private IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(2);
         _alreadyAttacked = false;
+        print("Attack reset!");
     }
 
     public static void Death()
