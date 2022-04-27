@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,16 @@ public class CombatManager : MonoBehaviour
     public GameObject victoryPanel, defeatPanel;
     public GameObject btnOptions;
     public static bool gameOver;
+
+    private void Awake()
+    {
+        // reset
+        playerHealth = 30;
+        bossHealth = 50;
+        gameOver = false;
+        playerDead = false;
+        bossDead = false;
+    }
 
     private void Start()
     {
