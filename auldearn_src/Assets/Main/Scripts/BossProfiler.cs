@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 // Ref: https://youtu.be/UjkSFoLxesw
 public class BossProfiler : MonoBehaviour
 {
-    private static int _idle, _walk, _run, _death, _leftA, _rightA;
+    private int _idle, _walk, _run, _death, _leftA, _rightA;
     private static Animator _animator;
     public NavMeshAgent agent;
     public Transform player;
@@ -126,6 +126,12 @@ public class BossProfiler : MonoBehaviour
 
             print("Attack complete...");
         }
+        
+        if (CombatManager.bossDead)
+        {
+            AnimationState(true, false, false, false, false, false);
+            StartCoroutine(Death());
+        }
     }
 
     private IEnumerator AttackComplete()
@@ -141,9 +147,10 @@ public class BossProfiler : MonoBehaviour
         _alreadyAttacked = false;
         print("Attack reset!");
     }
-
-    public static void Death()
+    
+    private IEnumerator Death()
     {
-        _animator.SetBool(_death, true);
+        yield return new WaitForSeconds(0.1f);
+        AnimationState(false, false, false, false, false, true);
     }
 }

@@ -102,7 +102,7 @@ public class PlayerProfiler : MonoBehaviour
             _player.transform.position += Vector3.back * Time.deltaTime * 2f;
         }
         
-        if (CombatManager.playerHealth <= 0)
+        if (CombatManager.playerDead)
         {
             // to transition to death...
             AnimationState(true, false, false, false, false, false, false, false, false, false);
