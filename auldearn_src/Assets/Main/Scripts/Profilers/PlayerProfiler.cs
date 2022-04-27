@@ -6,7 +6,7 @@ public class PlayerProfiler : MonoBehaviour
 {
     private int _idleActive, _walkActive, _runActive, _left, _right, _back;
     private int _rightAttack, _leftAttack, _dodge, _death;
-    private float _tilt, _rotationSpeed;
+    //private float _tilt, _rotationSpeed;
     private GameObject _player;
     private Animator _animator;
 
@@ -115,18 +115,18 @@ public class PlayerProfiler : MonoBehaviour
     // TODO - still needs work
     private void Rotate()
     {
-        _rotationSpeed = 1;
-        _tilt += _rotationSpeed * Gamepad.all[0].rightStick.y.normalizeMax;
-        if (Gamepad.all[0].rightStick.right.isPressed)
-        {
-            // rotate
-            transform.eulerAngles = new Vector3(0, _tilt, 0);
-        }
-        else if (Gamepad.all[0].rightStick.left.isPressed)
-        {
-            // rotate
-            transform.eulerAngles = new Vector3(0, -_tilt, 0);
-        }
+        // _rotationSpeed = 1;
+        // _tilt += _rotationSpeed * Gamepad.all[0].rightStick.y.normalizeMax;
+        // if (Gamepad.all[0].rightStick.right.isPressed)
+        // {
+        //     // rotate
+        //     transform.eulerAngles = new Vector3(0, _tilt, 0);
+        // }
+        // else if (Gamepad.all[0].rightStick.left.isPressed)
+        // {
+        //     // rotate
+        //     transform.eulerAngles = new Vector3(0, -_tilt, 0);
+        // }
     }
 
     private IEnumerator Wait()

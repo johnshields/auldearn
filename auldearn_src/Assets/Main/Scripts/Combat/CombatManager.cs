@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
@@ -15,15 +15,20 @@ public class CombatManager : MonoBehaviour
         {
             print("DEFEAT: Player is dead!");
             playerDead = true;
-            defeatPanel.SetActive(true);
-            Time.timeScale = 0f;
+            StartCoroutine(EndScreen(defeatPanel));
         }
         else if (bossHealth <= 0)
         {
             print("VICTORY: Boss is dead!");
             bossDead = true;
-            victoryPanel.SetActive(true);
-            Time.timeScale = 0f;
+            StartCoroutine(EndScreen(victoryPanel));
         }
+    }
+
+    private static IEnumerator EndScreen(GameObject panel)
+    {
+        yield return new WaitForSeconds(4f);
+        panel.SetActive(true);
+        Time.timeScale = 0f;
     }
 }
