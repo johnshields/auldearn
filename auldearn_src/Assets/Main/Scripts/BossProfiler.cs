@@ -143,7 +143,7 @@ public class BossProfiler : MonoBehaviour
 
     private IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1f);
         _alreadyAttacked = false;
         print("Attack reset!");
     }
