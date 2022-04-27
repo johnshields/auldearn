@@ -6,6 +6,7 @@ public class PlayerProfiler : MonoBehaviour
 {
     private int _idleActive, _walkActive, _runActive, _left, _right, _back;
     private int _rightAttack, _leftAttack, _dodge, _death;
+    private float _tilt, _rotationSpeed;
     private GameObject _player;
     private Animator _animator;
 
@@ -32,6 +33,7 @@ public class PlayerProfiler : MonoBehaviour
     {
         MainProfiles();
         CombatProfile();
+        Rotate();
     }
 
     private void AnimationState(bool idle, bool walk, bool run,
@@ -72,7 +74,7 @@ public class PlayerProfiler : MonoBehaviour
             AnimationState(false, false, false, false, true, false, false, false, false, false); // right
             _player.transform.position += Vector3.right * Time.deltaTime * 3f;
         }
-        else if (Gamepad.all[0].aButton.isPressed)
+        else if (Gamepad.all[0].rightShoulder.isPressed)
         {
             AnimationState(false, false, true, false, false, false, false, false, false, false); // run
             _player.transform.position += Vector3.forward * Time.deltaTime * 6f;
@@ -107,6 +109,23 @@ public class PlayerProfiler : MonoBehaviour
             // to transition to death...
             AnimationState(true, false, false, false, false, false, false, false, false, false);
             StartCoroutine(Wait());
+        }
+    }
+
+    // TODO - still needs work
+    private void Rotate()
+    {
+        _rotationSpeed = 1;
+        _tilt += _rotationSpeed * Gamepad.all[0].rightStick.y.normalizeMax;
+        if (Gamepad.all[0].rightStick.right.isPressed)
+        {
+            // rotate
+            transform.eulerAngles = new Vector3(0, _tilt, 0);
+        }
+        else if (Gamepad.all[0].rightStick.left.isPressed)
+        {
+            // rotate
+            transform.eulerAngles = new Vector3(0, -_tilt, 0);
         }
     }
 
