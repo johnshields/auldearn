@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnableMenu : MonoBehaviour
 {
     public GameObject buttons;
-    
+    public static bool menuActive;
+
     private void Awake()
     {
+        menuActive = false;
         buttons.SetActive(false);
         StartCoroutine(ActivateMenu());
     }
@@ -16,6 +18,6 @@ public class EnableMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(4.5f);
         buttons.SetActive(true);
-        
+        menuActive = true;
     }
 }

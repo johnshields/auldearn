@@ -6,13 +6,13 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject confirmPanel;
     private bool _confirm;
-    
+
     public void Awake()
     {
         foreach (var t in Gamepad.all)
             Debug.Log(t.name);
-        
-        
+
+
         Time.timeScale = 1f;
         AudioListener.volume = 1f;
         _confirm = false;
@@ -20,29 +20,35 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Gamepad.all.Count <= 0) return;
-        if (Gamepad.all[0].aButton.isPressed && !_confirm)
+        if (EnableMenu.menuActive)
         {
-            SceneManager.LoadScene("TestBox");
-        }
-        else if (Gamepad.all[0].bButton.isPressed && !_confirm)
-        {
-            print("Waiting confirmation...");
-            _confirm = true;
-        }
-        else if (_confirm)
-        {
-            confirmPanel.SetActive(true);
-            if (Gamepad.all[0].aButton.isPressed && _confirm)
+            if (Gamepad.all.Count <= 0) return;
+            if (Gamepad.all[0].aButton.isPressed && !_confirm)
             {
-                print("Exit game...");
-                Application.Quit();
+                SceneManager.LoadScene("TestBox");
             }
-            else if (Gamepad.all[0].yButton.isPressed && _confirm)
+            else if (Gamepad.all[0].bButton.isPressed && !_confirm)
             {
-                confirmPanel.SetActive(false);
-                _confirm = false;
+                print("Waiting confirmation...");
+                _confirm = true;
             }
+            else if (_confirm)
+            {
+                confirmPanel.SetActive(true);
+                if (Gamepad.all[0].aButton.isPressed && _confirm)
+                {
+                    print("Exit game...");
+                    if (UnityEditor.EditorApplication.isPlaying)
+                        UnityEditor.EditorApplication.isPlaying = false;
+                    else
+                        Application.Quit();
+                }
+                else if (Gamepad.all[0].yButton.isPressed && _confirm)
+                {
+                    confirmPanel.SetActive(false);
+                    _confirm = false;
+                }
+            }   
         }
     }
 }
