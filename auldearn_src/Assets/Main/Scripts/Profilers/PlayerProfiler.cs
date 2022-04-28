@@ -6,7 +6,6 @@ public class PlayerProfiler : MonoBehaviour
 {
     private int _idleActive, _walkActive, _runActive, _left, _right, _back;
     private int _rightAttack, _leftAttack, _dodge, _death;
-    //private float _tilt, _rotationSpeed;
     private GameObject _player;
     private Animator _animator;
 
@@ -30,7 +29,6 @@ public class PlayerProfiler : MonoBehaviour
     {
         MainProfiles();
         CombatProfile();
-        Rotate();
     }
 
     private void AnimationState(bool idle, bool walk, bool run,
@@ -86,15 +84,9 @@ public class PlayerProfiler : MonoBehaviour
     {
         if (Gamepad.all.Count <= 0) return;
         if (Gamepad.all[0].leftTrigger.isPressed)
-        {
             AnimationState(false, false, false, false, false, false, true, false, false, false); // left
-            print("Left swing...");
-        }
         else if (Gamepad.all[0].rightTrigger.isPressed)
-        {
             AnimationState(false, false, false, false, false, false, false, true, false, false); // right
-            print("Right swing...");
-        }
         else if (Gamepad.all[0].xButton.isPressed)
         {
             AnimationState(false, false, false, false, false, false, false, false, true, false); // dodge
@@ -107,23 +99,6 @@ public class PlayerProfiler : MonoBehaviour
             AnimationState(true, false, false, false, false, false, false, false, false, false);
             StartCoroutine(Wait());
         }
-    }
-
-    // TODO - still needs work
-    private void Rotate()
-    {
-        // _rotationSpeed = 1;
-        // _tilt += _rotationSpeed * Gamepad.all[0].rightStick.y.normalizeMax;
-        // if (Gamepad.all[0].rightStick.right.isPressed)
-        // {
-        //     // rotate
-        //     transform.eulerAngles = new Vector3(0, _tilt, 0);
-        // }
-        // else if (Gamepad.all[0].rightStick.left.isPressed)
-        // {
-        //     // rotate
-        //     transform.eulerAngles = new Vector3(0, -_tilt, 0);
-        // }
     }
 
     private IEnumerator Wait()

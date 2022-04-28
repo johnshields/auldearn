@@ -59,7 +59,6 @@ public class BossProfiler : MonoBehaviour
 
     private void Patrolling()
     {
-        print("Patrol");
         if (!_walkPointSet) SearchWalkPoint();
 
         if (_walkPointSet)
@@ -77,8 +76,6 @@ public class BossProfiler : MonoBehaviour
 
     private void SearchWalkPoint()
     {
-        print("Search");
-
         //Calculate random point in range
         var randomZ = Random.Range(-walkPointRange, walkPointRange);
         var randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -92,14 +89,12 @@ public class BossProfiler : MonoBehaviour
 
     private void ChasePlayer()
     {
-        print("Chase");
         AnimationState(false, false, true, false, false, false);
         agent.SetDestination(player.position);
     }
 
     private void AttackMode()
     {
-        print("Boss is in: AttackMode");
         // Boss does not move and looks at player.
         agent.SetDestination(transform.position);
         transform.LookAt(player);
@@ -108,25 +103,20 @@ public class BossProfiler : MonoBehaviour
         if (!_alreadyAttacked)
         {
             var attackBool = Random.Range(0, 2);
-            print("attackBool: " + attackBool);
             switch (attackBool)
             {
                 // attack
                 case 0:
-                    print("Left punch...");
                     AnimationState(false, false, false, true, false, false);
                     StartCoroutine(AttackComplete());
                     break;
                 case 1:
-                    print("Right punch...");
                     AnimationState(false, false, false, false, true, false);
                     StartCoroutine(AttackComplete());
                     break;
             }
-
-            print("Attack complete...");
         }
-        
+
         if (CombatManager.bossDead)
         {
             AnimationState(true, false, false, false, false, false);
@@ -145,9 +135,8 @@ public class BossProfiler : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         _alreadyAttacked = false;
-        print("Attack reset!");
     }
-    
+
     private IEnumerator Death()
     {
         yield return new WaitForSeconds(0.1f);
