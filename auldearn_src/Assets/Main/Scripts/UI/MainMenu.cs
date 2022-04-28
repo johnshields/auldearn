@@ -38,10 +38,11 @@ public class MainMenu : MonoBehaviour
                 if (Gamepad.all[0].aButton.isPressed && _confirm)
                 {
                     print("Exit game...");
-                    if (UnityEditor.EditorApplication.isPlaying)
-                        UnityEditor.EditorApplication.isPlaying = false;
-                    else
-                        Application.Quit();
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#else
+           Application.Quit();
+#endif
                 }
                 else if (Gamepad.all[0].yButton.isPressed && _confirm)
                 {
