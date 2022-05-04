@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    private static bool _paused;
-    public GameObject menu, muteBtn, unMuteBtn, healthCounters;
+    private static bool _paused, _controls;
+    public GameObject menu, controlsPanel, muteBtn, unMuteBtn, healthCounters;
 
     private void Awake()
     {
         _paused = false;
         menu.SetActive(false);
-        
-        
+        controlsPanel.SetActive(false);
+
         if (!Bools.muteActive)
         {
             unMuteBtn.SetActive(false);
@@ -30,17 +30,24 @@ public class PauseMenu : MonoBehaviour
     {
         var b = Gamepad.all[0].bButton.isPressed;
         // if start pressed pause game else resume.
-        if (Gamepad.all[0].startButton.isPressed && !_paused)
+        if (Gamepad.all[0].startButton.isPressed && !_paused && !_controls)
             PauseGame();
-        else if (Gamepad.all[0].aButton.isPressed && _paused)
+        else if (Gamepad.all[0].aButton.isPressed && _paused  && !_controls)
             ResumeGame();
-        else if (b && _paused || b && CombatManager.gameOver)
+        else if (Gamepad.all[0].xButton.isPressed && _paused && !_controls)
+            _controls = true;
+        else if (b && _paused  && !_controls || b && CombatManager.gameOver)
             StartCoroutine(WhichScene("01_MainMenu"));
         if (Gamepad.all[0].xButton.isPressed && CombatManager.gameOver)
         {
             StartCoroutine(WhichScene("TestBox"));
         }
 
+        if (_controls)
+        {
+            controlsPanel.SetActive(true);
+            Controls();
+        }
         GameVolume();
     }
 
@@ -62,6 +69,16 @@ public class PauseMenu : MonoBehaviour
         menu.SetActive(false);
         healthCounters.SetActive(true);
     }
+    
+    private void Controls()
+    {
+        if (Gamepad.all[0].yButton.isPressed && _controls)
+        {
+            controlsPanel.SetActive(false);
+            _controls = false;
+        }
+    }
+
 
     private IEnumerator WhichScene(string scene)
     {
