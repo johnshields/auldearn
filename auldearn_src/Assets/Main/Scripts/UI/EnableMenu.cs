@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnableMenu : MonoBehaviour
 {
-    public GameObject buttons;
     public static bool menuActive;
+    public GameObject buttons;
 
     private void Awake()
     {

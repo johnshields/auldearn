@@ -1,20 +1,20 @@
-using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerProfiler : MonoBehaviour
 {
+    public AudioClip[] swordSFX;
+    private Animator _animator;
+    private AudioSource _audio;
+    private GameObject _player;
     private int _idleActive, _walkActive, _runActive, _left, _right, _back;
     private int _rightAttack, _leftAttack, _dodge, _death;
-    public float[] yRotation;
-    private GameObject _player;
-    private Animator _animator;
 
     private void Start()
     {
         _player = GameObject.Find("Player/knight");
+        _audio = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         _idleActive = Animator.StringToHash("IdleActive");
         _walkActive = Animator.StringToHash("WalkActive");
@@ -60,7 +60,7 @@ public class PlayerProfiler : MonoBehaviour
     private void MainProfiles()
     {
         var tr = _player.transform.rotation;
-        
+
         if (Gamepad.all.Count <= 0) return;
         if (Gamepad.all[0].leftStick.up.isPressed)
         {
@@ -106,21 +106,15 @@ public class PlayerProfiler : MonoBehaviour
     private void RotateRound()
     {
         if (Gamepad.all[0].rightStick.right.isPressed)
-        {
-            print("Turn right");
             transform.Rotate(new Vector3(0f, 2.5f, 0f));
-        }
         else if (Gamepad.all[0].rightStick.left.isPressed)
-        {
-            print("Turn left");
             transform.Rotate(new Vector3(0f, -2.5f, 0f));
-        }
     }
 
     private void CombatProfile()
     {
         var tr = _player.transform.rotation;
-        
+
         if (Gamepad.all.Count <= 0) return;
         if (Gamepad.all[0].leftTrigger.isPressed)
             AnimationState(false, false, false, false, false, false, true, false, false, false); // left
@@ -142,10 +136,15 @@ public class PlayerProfiler : MonoBehaviour
         }
     }
 
+    private void SwordSFX()
+    {
+        _audio.PlayOneShot(swordSFX[Random.Range(0, swordSFX.Length)]);
+    }
+
     private IEnumerator Wait()
     {
         // kill player and disable Profiler.
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         AnimationState(false, false, false, false, false, false, false, false, false, true);
         yield return new WaitForSeconds(0.2f);
         _player.GetComponent<PlayerProfiler>().enabled = false;

@@ -1,31 +1,33 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 // Ref: https://youtu.be/UjkSFoLxesw
 public class BossProfiler : MonoBehaviour
 {
-    private int _idle, _walk, _run, _death, _leftA, _rightA;
     private static Animator _animator;
+    public AudioClip[] gollemSFX;
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask groundMask, playerMask;
 
     // patrolling
     public Vector3 walkPoint;
-    private bool _walkPointSet;
     public float walkPointRange;
-
-    // attacking
-    private bool _alreadyAttacked;
 
     // states
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    // attacking
+    private bool _alreadyAttacked;
+    private AudioSource _audio;
+    private int _idle, _walk, _run, _death, _leftA, _rightA;
+    private bool _walkPointSet;
+
     private void Start()
     {
+        _audio = GetComponent<AudioSource>();
         player = GameObject.Find("Player/knight").transform;
         agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
@@ -100,7 +102,7 @@ public class BossProfiler : MonoBehaviour
         transform.LookAt(player);
         AnimationState(true, false, false, false, false, false);
 
-        if (!_alreadyAttacked)
+        if (!_alreadyAttacked && CombatManager.playerHealth >= 0)
         {
             var attackBool = Random.Range(0, 2);
             switch (attackBool)
@@ -122,6 +124,11 @@ public class BossProfiler : MonoBehaviour
             AnimationState(true, false, false, false, false, false);
             StartCoroutine(Death());
         }
+    }
+
+    private void GollemSFX()
+    {
+        _audio.PlayOneShot(gollemSFX[Random.Range(0, gollemSFX.Length)]);
     }
 
     private IEnumerator AttackComplete()
