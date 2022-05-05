@@ -6,15 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject menuItems, confirmPanel, controlsPanel, muteBtn, unMuteBtn;
-    private bool _confirm, _controls;
+    public GameObject menuItems, confirmPanel, controlsPanel, muteBtn, unMuteBtn, credits;
+    private bool _confirm, _controls, _credits;
 
     public void Awake()
     {
         AudioManager.MuteActive();
         confirmPanel.SetActive(false);
+        credits.SetActive(false);
         _confirm = false;
         _controls = false;
+        _credits = false;
 
         if (!Bools.muteActive)
         {
@@ -34,29 +36,32 @@ public class MainMenu : MonoBehaviour
         {
             if (Gamepad.all.Count <= 0) return;
             // Start Game
-            if (Gamepad.all[0].aButton.isPressed && !_confirm && !_controls)
+            if (Gamepad.all[0].aButton.isPressed && !_confirm && !_controls && !_credits)
             {
                 StartCoroutine(WhichScene("02_AuldearnBattle"));
             }
             // Controls Menu
-            else if (Gamepad.all[0].xButton.isPressed && !_confirm && !_controls)
+            else if (Gamepad.all[0].xButton.isPressed && !_confirm && !_controls && !_credits)
             {
                 _controls = true;
             }
-            // Confirm Exit.
-            else if (Gamepad.all[0].bButton.isPressed && !_confirm && !_controls)
+            // Credits
+            else if (Gamepad.all[0].yButton.isPressed && !_confirm && !_controls && !_credits)
             {
-                _confirm = true;
+                _credits = true;
             }
+            // Confirm Exit.
+            else if (Gamepad.all[0].bButton.isPressed && !_confirm && !_controls && !_credits)
+                _confirm = true;
             // Mute Game
-            else if (Gamepad.all[0].dpad.left.isPressed && !_confirm && !_controls)
+            else if (Gamepad.all[0].dpad.left.isPressed && !_confirm && !_controls && !_credits)
             {
                 Bools.muteActive = true;
                 muteBtn.SetActive(false);
                 unMuteBtn.SetActive(true);
                 AudioManager.MuteActive();
             }
-            else if (Gamepad.all[0].dpad.right.isPressed && !_confirm && !_controls)
+            else if (Gamepad.all[0].dpad.right.isPressed && !_confirm && !_controls && !_credits)
             {
                 Bools.muteActive = false;
                 unMuteBtn.SetActive(false);
@@ -74,6 +79,13 @@ public class MainMenu : MonoBehaviour
             {
                 confirmPanel.SetActive(true);
                 Confirm();
+            }
+            else if (_credits)
+            {
+                credits.SetActive(true);
+                credits.GetComponent<Animator>().SetBool("RollCredits", true); 
+                credits.GetComponent<Animator>().SetBool("Fin", false);
+                StartCoroutine(EndCredits());
             }
         }
     }
@@ -99,6 +111,13 @@ public class MainMenu : MonoBehaviour
             confirmPanel.SetActive(false);
             _confirm = false;
         }
+    }
+
+    private IEnumerator EndCredits()
+    {
+        yield return new WaitForSeconds(20f);
+        credits.SetActive(false);
+        _credits = false;
     }
 
     private IEnumerator WhichScene(string scene)

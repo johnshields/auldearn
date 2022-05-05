@@ -8,14 +8,13 @@ public class CombatManager : MonoBehaviour
     public static int bossHealth = 50;
     public static bool playerDead, bossDead, gameOver;
     public AudioClip[] deathSFX;
-    public GameObject victoryPanel, defeatPanel, playerHB, bossHB;
-    public GameObject btnOptions;
-    public GameObject bars;
+    public GameObject victoryPanel, defeatPanel, playerHB, bossHB, btnOptions, bars;
     public GameObject[] fills;
     private AudioSource _audio;
     private bool _played;
     private Slider _playerHealthBar, _bossHealthBar;
     public int[] cheatHealth;
+    private GameObject _player;
 
     private void Awake()
     {
@@ -34,6 +33,7 @@ public class CombatManager : MonoBehaviour
         _audio = GetComponent<AudioSource>();
         _playerHealthBar = playerHB.GetComponent<Slider>();
         _bossHealthBar = bossHB.GetComponent<Slider>();
+        _player = GameObject.Find("Player/knight");
     }
 
     private void Update()
@@ -79,6 +79,7 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         panel.SetActive(true);
         bars.SetActive(false);
+        _player.GetComponent<PlayerProfiler>().enabled = false;
         yield return new WaitForSeconds(5f);
         gameOver = true;
         btnOptions.SetActive(true);
