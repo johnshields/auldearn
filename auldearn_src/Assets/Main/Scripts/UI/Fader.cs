@@ -4,7 +4,7 @@ public class Fader : MonoBehaviour
 {
     private static int _fadeIn, _fadeOut;
     private static Animator _animator;
-    
+
     private void Start()
     {
         _animator = GetComponent<Animator>();

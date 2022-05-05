@@ -32,22 +32,20 @@ public class PauseMenu : MonoBehaviour
         // if start pressed pause game else resume.
         if (Gamepad.all[0].startButton.isPressed && !_paused && !_controls)
             PauseGame();
-        else if (Gamepad.all[0].aButton.isPressed && _paused  && !_controls)
+        else if (Gamepad.all[0].aButton.isPressed && _paused && !_controls)
             ResumeGame();
         else if (Gamepad.all[0].xButton.isPressed && _paused && !_controls)
             _controls = true;
-        else if (b && _paused  && !_controls || b && CombatManager.gameOver)
+        else if (b && _paused && !_controls || b && CombatManager.gameOver && !_controls)
             StartCoroutine(WhichScene("01_MainMenu"));
-        if (Gamepad.all[0].xButton.isPressed && CombatManager.gameOver)
-        {
-            StartCoroutine(WhichScene("TestBox"));
-        }
+        if (Gamepad.all[0].xButton.isPressed && CombatManager.gameOver) StartCoroutine(WhichScene("TestBox"));
 
         if (_controls)
         {
             controlsPanel.SetActive(true);
             Controls();
         }
+
         GameVolume();
     }
 
@@ -69,7 +67,7 @@ public class PauseMenu : MonoBehaviour
         menu.SetActive(false);
         healthCounters.SetActive(true);
     }
-    
+
     private void Controls()
     {
         if (Gamepad.all[0].yButton.isPressed && _controls)
@@ -82,9 +80,10 @@ public class PauseMenu : MonoBehaviour
 
     private IEnumerator WhichScene(string scene)
     {
-        Time.timeScale = 1f;
         _paused = false;
+        Time.timeScale = 1f;
         menu.SetActive(false);
+        healthCounters.SetActive(false);
         AudioManager.FadeMusic(false, true);
         Fader.FadeScene(false, true);
         yield return new WaitForSeconds(2.5f);

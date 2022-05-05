@@ -7,8 +7,8 @@ public class PlayerProfiler : MonoBehaviour
     public AudioClip[] swordSFX;
     private Animator _animator;
     private AudioSource _audio;
-    private GameObject _player;
     private int _idleActive, _walkActive, _runActive, _left, _right, _back;
+    private GameObject _player;
     private int _rightAttack, _leftAttack, _dodge, _death;
 
     private void Start()
@@ -117,9 +117,13 @@ public class PlayerProfiler : MonoBehaviour
 
         if (Gamepad.all.Count <= 0) return;
         if (Gamepad.all[0].leftTrigger.isPressed)
+        {
             AnimationState(false, false, false, false, false, false, true, false, false, false); // left
+        }
         else if (Gamepad.all[0].rightTrigger.isPressed)
+        {
             AnimationState(false, false, false, false, false, false, false, true, false, false); // right
+        }
         else if (Gamepad.all[0].xButton.isPressed)
         {
             AnimationState(false, false, false, false, false, false, false, false, true, false); // dodge

@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -34,13 +35,19 @@ public class MainMenu : MonoBehaviour
             if (Gamepad.all.Count <= 0) return;
             // Start Game
             if (Gamepad.all[0].aButton.isPressed && !_confirm && !_controls)
+            {
                 StartCoroutine(WhichScene("TestBox"));
+            }
             // Controls Menu
             else if (Gamepad.all[0].xButton.isPressed && !_confirm && !_controls)
+            {
                 _controls = true;
+            }
             // Confirm Exit.
             else if (Gamepad.all[0].bButton.isPressed && !_confirm && !_controls)
+            {
                 _confirm = true;
+            }
             // Mute Game
             else if (Gamepad.all[0].dpad.left.isPressed && !_confirm && !_controls)
             {
@@ -93,7 +100,7 @@ public class MainMenu : MonoBehaviour
             _confirm = false;
         }
     }
-    
+
     private IEnumerator WhichScene(string scene)
     {
         menuItems.SetActive(false);
@@ -110,7 +117,7 @@ public class MainMenu : MonoBehaviour
         Fader.FadeScene(false, true);
         yield return new WaitForSeconds(2.5f);
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+        EditorApplication.isPlaying = false;
 #else
            Application.Quit();
 #endif

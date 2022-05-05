@@ -8,13 +8,13 @@ alt="GSA Logo" width="600" height="250"/>
 ***
 
 # Project Details
-| **Project Title** | Auldearn |
-| :------------- |:-------------|
-| **Course**              | MSc Serious Games and Virtual Reality |
-| **Module**              | HCI Virtual and Augmented Reality |
+| **Project Title** | Auldearn                                                                                                                    |
+| :------------- |:----------------------------------------------------------------------------------------------------------------------------|
+| **Course**              | MSc Serious Games and Virtual Reality                                                                                       |
+| **Module**              | HCI Virtual and Augmented Reality                                                                                           |
 | **University**           | [The Glasgow School of Art (SimVis)](https://www.gsa.ac.uk/research/research-units/school-of-simulation-and-visualisation/) |
-| **Students**             | John |
-| **Module Lecturer**      | Matthieu Poyade |
+| **Students**             | John Shields                                                                                                                |
+| **Module Lecturer**      | Dr. Matthieu Poyade                                                                                                         |
 
 ***
 
@@ -22,5 +22,5 @@ alt="GSA Logo" width="600" height="250"/>
 A medieval boss battle.
 
 ## Preview:
-![preview](workings/dev_snips/preview003.PNG)
+![preview](workings/dev_snips/preview004.PNG)
 

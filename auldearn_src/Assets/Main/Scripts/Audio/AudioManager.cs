@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
 {
     private static int _fadeIn, _fadeOut;
     private static Animator _animator;
-    
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
         _animator.SetBool(_fadeIn, fadeIn);
         _animator.SetBool(_fadeOut, fadeOut);
     }
-    
+
     public static void MuteActive()
     {
         if (Bools.muteActive)

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var t in Gamepad.all)
             Debug.Log(t.name);
-        
+
         Time.timeScale = 1f;
         Cursor.visible = false;
     }
