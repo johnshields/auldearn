@@ -37,19 +37,13 @@ public class MainMenu : MonoBehaviour
             if (Gamepad.all.Count <= 0) return;
             // Start Game
             if (Gamepad.all[0].aButton.isPressed && !_confirm && !_controls && !_credits)
-            {
                 StartCoroutine(WhichScene("02_AuldearnBattle"));
-            }
             // Controls Menu
             else if (Gamepad.all[0].xButton.isPressed && !_confirm && !_controls && !_credits)
-            {
                 _controls = true;
-            }
             // Credits
-            else if (Gamepad.all[0].yButton.isPressed && !_confirm && !_controls && !_credits)
-            {
+            else if (Gamepad.all[0].rightShoulder.isPressed && !_confirm && !_controls && !_credits)
                 _credits = true;
-            }
             // Confirm Exit.
             else if (Gamepad.all[0].bButton.isPressed && !_confirm && !_controls && !_credits)
                 _confirm = true;
