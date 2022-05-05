@@ -10,6 +10,7 @@ public class BossProfiler : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask groundMask, playerMask;
+    public GameObject bossFootsteps;
 
     // patrolling
     public Vector3 walkPoint;
@@ -26,8 +27,9 @@ public class BossProfiler : MonoBehaviour
     private bool _walkPointSet;
     public static bool combat;
 
-    private void Start()
+    private void Awake()
     {
+        combat = false;
         _audio = GetComponent<AudioSource>();
         player = GameObject.Find("Player/knight").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -132,6 +134,12 @@ public class BossProfiler : MonoBehaviour
     {
         _audio.PlayOneShot(gollemSFX[Random.Range(0, gollemSFX.Length)]);
     }
+    
+    private void Footsteps()
+    {
+        bossFootsteps.GetComponent<BossFootsteps>().FootstepSounds();
+    }
+
 
     private IEnumerator AttackComplete()
     {

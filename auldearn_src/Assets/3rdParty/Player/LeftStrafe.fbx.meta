@@ -1,32 +1,14 @@
 fileFormatVersion: 2
-guid: d93255dc12506b64695b07305a538c11
+guid: 485f8bfcc3ed0d746afc9fe80cb56448
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: 7943539667693815202
-    second: cavaleiro|idle
-  - first:
-      74: 6577225254332035650
-    second: cavaleiro|Nothing1
-  - first:
-      74: -4806082799742338632
-    second: cavaleiro|Nothing2
-  - first:
-      74: 4849139816914315138
-    second: cavaleiro|Nothing3
-  - first:
-      74: 1251108242320842030
-    second: cavaleiro|Nothing4
-  - first:
-      74: -1441427235819481621
-    second: cavaleiro|Nothing5
-  - first:
-      74: -7718569582333437026
-    second: cavaleiro|Nothing6
-  - first:
       74: -203655887218126122
     second: mixamo.com
+  - first:
+      74: 2372127260913040047
+    second: Idle@Right Strafe Walking
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -54,7 +36,50 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle@Right Strafe Walking
+      takeName: mixamo.com
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 31
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.25003234
+        functionName: Footsteps
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7498977
+        functionName: Footsteps
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

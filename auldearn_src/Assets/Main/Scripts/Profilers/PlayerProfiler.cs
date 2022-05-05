@@ -9,6 +9,7 @@ public class PlayerProfiler : MonoBehaviour
     private AudioSource _audio;
     private int _idleActive, _walkActive, _runActive, _left, _right, _back;
     private GameObject _player;
+    public GameObject playerFootsteps;
     private int _rightAttack, _leftAttack, _dodge, _death;
 
     private void Start()
@@ -143,6 +144,11 @@ public class PlayerProfiler : MonoBehaviour
     private void SwordSFX()
     {
         _audio.PlayOneShot(swordSFX[Random.Range(0, swordSFX.Length)]);
+    }
+    
+    private void Footsteps()
+    {
+        playerFootsteps.GetComponent<PlayerFootsteps>().FootstepSounds();
     }
 
     private IEnumerator Wait()
