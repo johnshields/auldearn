@@ -145,7 +145,7 @@ public class PlayerProfiler : MonoBehaviour
     {
         _audio.PlayOneShot(swordSFX[Random.Range(0, swordSFX.Length)]);
     }
-    
+
     private void Footsteps()
     {
         playerFootsteps.GetComponent<PlayerFootsteps>().FootstepSounds();
