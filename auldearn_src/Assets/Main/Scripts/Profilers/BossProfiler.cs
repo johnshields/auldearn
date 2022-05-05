@@ -24,6 +24,7 @@ public class BossProfiler : MonoBehaviour
     private AudioSource _audio;
     private int _idle, _walk, _run, _death, _leftA, _rightA;
     private bool _walkPointSet;
+    public static bool combat;
 
     private void Start()
     {
@@ -93,6 +94,7 @@ public class BossProfiler : MonoBehaviour
     {
         AnimationState(false, false, true, false, false, false);
         agent.SetDestination(player.position);
+        combat = true;
     }
 
     private void AttackMode()

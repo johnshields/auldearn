@@ -1372,7 +1372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &703237432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4083,7 +4083,7 @@ GameObject:
   - component: {fileID: 1840396031}
   - component: {fileID: 1840396030}
   m_Layer: 0
-  m_Name: "\u25B3 "
+  m_Name: R1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
