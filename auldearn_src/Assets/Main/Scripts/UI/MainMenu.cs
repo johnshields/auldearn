@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
             // Start Game
             if (Gamepad.all[0].aButton.isPressed && !_confirm && !_controls)
             {
-                StartCoroutine(WhichScene("TestBox"));
+                StartCoroutine(WhichScene("02_AuldearnBattle"));
             }
             // Controls Menu
             else if (Gamepad.all[0].xButton.isPressed && !_confirm && !_controls)

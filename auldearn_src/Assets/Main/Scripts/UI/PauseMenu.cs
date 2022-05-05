@@ -38,7 +38,7 @@ public class PauseMenu : MonoBehaviour
             _controls = true;
         else if (b && _paused && !_controls || b && CombatManager.gameOver && !_controls)
             StartCoroutine(WhichScene("01_MainMenu"));
-        if (Gamepad.all[0].xButton.isPressed && CombatManager.gameOver) StartCoroutine(WhichScene("TestBox"));
+        if (Gamepad.all[0].xButton.isPressed && CombatManager.gameOver) StartCoroutine(WhichScene("02_AuldearnBattle"));
 
         if (_controls)
         {
