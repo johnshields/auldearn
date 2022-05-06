@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,10 +10,11 @@ public class PlayerAnimAndSound : MonoBehaviour
     private AudioSource _audio;
     private readonly float _maxSpeed = 5f;
     private int _profile;
-    private int _rightAttack, _leftAttack, _dodge, _death;
+    private int _rightAttack, _leftAttack, _dodgeR, _dodgeL, _death;
     private GameObject _player;
     public AudioClip[] swordSFX;
     public GameObject playerFootsteps;
+    public static bool dodgeActive;
 
     private void Awake()
     {
@@ -27,7 +29,8 @@ public class PlayerAnimAndSound : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rightAttack = Animator.StringToHash("RightAttack");
         _leftAttack = Animator.StringToHash("LeftAttack");
-        _dodge = Animator.StringToHash("Dodge");
+        _dodgeR = Animator.StringToHash("DodgeRight");
+        _dodgeL = Animator.StringToHash("DodgeLeft");
         _death = Animator.StringToHash("Death");
         _profile = Animator.StringToHash("Profile");
     }
@@ -44,15 +47,17 @@ public class PlayerAnimAndSound : MonoBehaviour
 
     private void OnEnable()
     {
-        _controls.Profiler.Dodge.started += Dodge;
+        _controls.Profiler.DodgeRight.started += DodgeRight;
+        _controls.Profiler.DodgeLeft.started += DodgeLeft;
         _controls.Profiler.AttackRight.started += RightAttack;
         _controls.Profiler.AttackLeft.started += LeftAttack;
         _controls.Profiler.Enable();
     }
-
+    
     private void OnDisable()
     {
-        _controls.Profiler.Dodge.started -= Dodge;
+        _controls.Profiler.DodgeRight.started -= DodgeRight;
+        _controls.Profiler.DodgeLeft.started -= DodgeLeft;
         _controls.Profiler.AttackRight.started -= RightAttack;
         _controls.Profiler.AttackLeft.started -= LeftAttack;
         _controls.Profiler.Disable();
@@ -68,11 +73,20 @@ public class PlayerAnimAndSound : MonoBehaviour
         _animator.SetTrigger(_leftAttack);
     }
 
-    private void Dodge(InputAction.CallbackContext obj)
+    private void DodgeRight(InputAction.CallbackContext obj)
     {
-        _animator.SetTrigger(_dodge);
-        transform.position += Vector3.back * Time.deltaTime * 2f;
+        _animator.SetTrigger(_dodgeR);
+        dodgeActive = true;
+        StartCoroutine(DodgeActive());
     }
+    
+    private void DodgeLeft(InputAction.CallbackContext obj)
+    {
+        _animator.SetTrigger(_dodgeL);
+        dodgeActive = true;
+        StartCoroutine(DodgeActive());
+    }
+
 
     private void SwordSFX()
     {
@@ -82,5 +96,11 @@ public class PlayerAnimAndSound : MonoBehaviour
     private void Footsteps()
     {
         playerFootsteps.GetComponent<PlayerFootsteps>().FootstepSounds();
+    }
+
+    private IEnumerator DodgeActive()
+    {
+        yield return new WaitForSeconds(1f);
+        dodgeActive = false;
     }
 }

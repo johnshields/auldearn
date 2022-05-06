@@ -97,6 +97,7 @@ public class BossProfiler : MonoBehaviour
         AnimationState(false, false, true, false, false, false);
         agent.SetDestination(player.position);
         combat = true;
+        sightRange = 30f;
     }
 
     private void AttackMode()

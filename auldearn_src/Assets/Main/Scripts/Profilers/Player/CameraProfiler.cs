@@ -25,7 +25,7 @@ namespace Player
             var desiredPosition = _target.position + _offset;
             transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
-            //RotateRound();
+            RotateRound();
         }
 
         private void RotateRound()

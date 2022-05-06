@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerProfiler : MonoBehaviour
 {
-    public float profileForce = 1.5f;
+    public float profileForce = 0.8f;
     public Camera playerCam;
 
     private Rigidbody _bodyPhysics;
