@@ -10,11 +10,11 @@ public class CombatManager : MonoBehaviour
     public AudioClip[] deathSFX;
     public GameObject victoryPanel, defeatPanel, playerHB, bossHB, btnOptions, bars;
     public GameObject[] fills;
+    public int[] cheatHealth;
     private AudioSource _audio;
     private bool _played;
-    private Slider _playerHealthBar, _bossHealthBar;
-    public int[] cheatHealth;
     private GameObject _player;
+    private Slider _playerHealthBar, _bossHealthBar;
 
     private void Awake()
     {
@@ -43,7 +43,7 @@ public class CombatManager : MonoBehaviour
             playerHealth = 0;
         else if (cheatHealth[1] == 0)
             bossHealth = 0;
-        
+
         // End Game if Player or Boss Health goes to 0.
         if (playerHealth <= 0)
         {

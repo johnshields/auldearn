@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class BossProfiler : MonoBehaviour
 {
     private static Animator _animator;
+    public static bool combat;
     public AudioClip[] gollemSFX;
     public NavMeshAgent agent;
     public Transform player;
@@ -25,7 +26,6 @@ public class BossProfiler : MonoBehaviour
     private AudioSource _audio;
     private int _idle, _walk, _run, _death, _leftA, _rightA;
     private bool _walkPointSet;
-    public static bool combat;
 
     private void Awake()
     {
@@ -134,7 +134,7 @@ public class BossProfiler : MonoBehaviour
     {
         _audio.PlayOneShot(gollemSFX[Random.Range(0, gollemSFX.Length)]);
     }
-    
+
     private void Footsteps()
     {
         bossFootsteps.GetComponent<BossFootsteps>().FootstepSounds();
