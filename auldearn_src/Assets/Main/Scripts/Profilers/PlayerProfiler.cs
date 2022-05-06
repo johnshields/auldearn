@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class PlayerProfiler : MonoBehaviour
 {
@@ -11,9 +13,11 @@ public class PlayerProfiler : MonoBehaviour
     private GameObject _player;
     public GameObject playerFootsteps;
     private int _rightAttack, _leftAttack, _dodge, _death;
+    private Gamepad _gp;
 
     private void Start()
     {
+        _gp = Gamepad.all[0];
         _player = GameObject.Find("Player/knight");
         _audio = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
@@ -60,38 +64,39 @@ public class PlayerProfiler : MonoBehaviour
 
     private void MainProfiles()
     {
+        var ls = _gp.leftStick;
         var tr = _player.transform.rotation;
 
         if (Gamepad.all.Count <= 0) return;
-        if (Gamepad.all[0].leftStick.up.isPressed)
+        if (ls.up.isPressed)
         {
             AnimationState(false, true, false, false, false, false, false, false, false, false); // forward
             _player.transform.position += IsBetween(tr.y, 0.7f, 1f) || IsBetween(tr.y, -0.7f, -1f)
                 ? Vector3.back * Time.deltaTime * 3f
                 : Vector3.forward * Time.deltaTime * 3f;
         }
-        else if (Gamepad.all[0].leftStick.down.isPressed)
+        else if (ls.down.isPressed)
         {
             AnimationState(false, false, false, false, false, true, false, false, false, false); // back
             _player.transform.position += IsBetween(tr.y, 0.7f, 1f) || IsBetween(tr.y, -0.7f, -1f)
                 ? Vector3.forward * Time.deltaTime * 2f
                 : Vector3.back * Time.deltaTime * 2f;
         }
-        else if (Gamepad.all[0].leftStick.left.isPressed)
+        else if (ls.left.isPressed)
         {
             AnimationState(false, false, false, true, false, false, false, false, false, false); // left
             _player.transform.position += IsBetween(tr.y, 0.7f, 1f) || IsBetween(tr.y, -0.7f, -1f)
                 ? Vector3.right * Time.deltaTime * 3f
                 : Vector3.left * Time.deltaTime * 3f;
         }
-        else if (Gamepad.all[0].leftStick.right.isPressed)
+        else if (ls.right.isPressed)
         {
             AnimationState(false, false, false, false, true, false, false, false, false, false); // right
             _player.transform.position += IsBetween(tr.y, 0.7f, 1f) || IsBetween(tr.y, -0.7f, -1f)
                 ? Vector3.left * Time.deltaTime * 3f
                 : Vector3.right * Time.deltaTime * 3f;
         }
-        else if (Gamepad.all[0].rightShoulder.isPressed)
+        else if (_gp.rightShoulder.isPressed)
         {
             AnimationState(false, false, true, false, false, false, false, false, false, false); // run
             _player.transform.position += IsBetween(tr.y, 0.7f, 1f) || IsBetween(tr.y, -0.7f, -1f)
@@ -106,10 +111,16 @@ public class PlayerProfiler : MonoBehaviour
 
     private void RotateRound()
     {
-        if (Gamepad.all[0].rightStick.right.isPressed)
-            transform.Rotate(new Vector3(0f, 2.5f, 0f));
-        else if (Gamepad.all[0].rightStick.left.isPressed)
-            transform.Rotate(new Vector3(0f, -2.5f, 0f));
+        var yPositive = new Vector3(0f, 2.5f, 0f);
+        var yNegative = new Vector3(0f, -2.5f, 0f);
+
+        if (_gp.rightStick.right.isPressed)
+        {
+            Quaternion.Euler(transform.rotation.eulerAngles + yPositive);
+            //transform.Rotate(yPositive, Space.World);
+        }
+        else if (_gp.rightStick.left.isPressed)
+            transform.Rotate(yNegative, Space.World);
     }
 
     private void CombatProfile()
@@ -117,15 +128,15 @@ public class PlayerProfiler : MonoBehaviour
         var tr = _player.transform.rotation;
 
         if (Gamepad.all.Count <= 0) return;
-        if (Gamepad.all[0].leftTrigger.isPressed)
+        if (_gp.leftTrigger.isPressed)
         {
             AnimationState(false, false, false, false, false, false, true, false, false, false); // left
         }
-        else if (Gamepad.all[0].rightTrigger.isPressed)
+        else if (_gp.rightTrigger.isPressed)
         {
             AnimationState(false, false, false, false, false, false, false, true, false, false); // right
         }
-        else if (Gamepad.all[0].xButton.isPressed)
+        else if (_gp.squareButton.isPressed)
         {
             AnimationState(false, false, false, false, false, false, false, false, true, false); // dodge
             _player.transform.position += IsBetween(tr.y, 0.7f, 1f) || IsBetween(tr.y, -0.7f, -1f)
