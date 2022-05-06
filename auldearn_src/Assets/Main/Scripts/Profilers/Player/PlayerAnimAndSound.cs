@@ -2,26 +2,30 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * PlayerAnimAndSound
+ * Script that controls the Player's animations & sounds.
+ */
 public class PlayerAnimAndSound : MonoBehaviour
 {
-    private Animator _animator;
-    private Rigidbody _bodyPhysics;
-    private KnightControls _controls;
-    private AudioSource _audio;
-    private readonly float _maxSpeed = 5f;
-    private int _profile;
-    private int _rightAttack, _leftAttack, _dodgeR, _dodgeL, _death;
-    private GameObject _player;
+    public static bool dodgeActive;
     public AudioClip[] swordSFX;
     public GameObject playerFootsteps;
-    public static bool dodgeActive;
+    private readonly float _maxSpeed = 5f;
+    private Animator _animator;
+    private AudioSource _audio;
+    private Rigidbody _bodyPhysics;
+    private KnightControls _controls;
+    private GameObject _player;
+    private int _profile;
+    private int _rightAttack, _leftAttack, _dodgeR, _dodgeL, _death;
 
     private void Awake()
     {
         _bodyPhysics = GetComponent<Rigidbody>();
         _controls = new KnightControls();
     }
-    
+
     private void Start()
     {
         _player = GameObject.Find("Player/knight");
@@ -53,7 +57,7 @@ public class PlayerAnimAndSound : MonoBehaviour
         _controls.Profiler.AttackLeft.started += LeftAttack;
         _controls.Profiler.Enable();
     }
-    
+
     private void OnDisable()
     {
         _controls.Profiler.DodgeRight.started -= DodgeRight;
@@ -79,7 +83,7 @@ public class PlayerAnimAndSound : MonoBehaviour
         dodgeActive = true;
         StartCoroutine(DodgeActive());
     }
-    
+
     private void DodgeLeft(InputAction.CallbackContext obj)
     {
         _animator.SetTrigger(_dodgeL);
@@ -92,7 +96,7 @@ public class PlayerAnimAndSound : MonoBehaviour
     {
         _audio.PlayOneShot(swordSFX[Random.Range(0, swordSFX.Length)]);
     }
-    
+
     private void Footsteps()
     {
         playerFootsteps.GetComponent<PlayerFootsteps>().FootstepSounds();

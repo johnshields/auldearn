@@ -5,11 +5,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using Object = UnityEngine.Object;
 
-public class @KnightControls : IInputActionCollection, IDisposable
+public class KnightControls : IInputActionCollection, IDisposable
 {
-    public InputActionAsset asset { get; }
-    public @KnightControls()
+    // Profiler
+    private readonly InputActionMap m_Profiler;
+    private readonly InputAction m_Profiler_AttackLeft;
+    private readonly InputAction m_Profiler_AttackRight;
+    private readonly InputAction m_Profiler_DodgeLeft;
+    private readonly InputAction m_Profiler_DodgeRight;
+    private readonly InputAction m_Profiler_Look;
+    private readonly InputAction m_Profiler_Move;
+    private IProfilerActions m_ProfilerActionsCallbackInterface;
+
+    public KnightControls()
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""KnightControls"",
@@ -140,18 +150,21 @@ public class @KnightControls : IInputActionCollection, IDisposable
     ""controlSchemes"": []
 }");
         // Profiler
-        m_Profiler = asset.FindActionMap("Profiler", throwIfNotFound: true);
-        m_Profiler_Move = m_Profiler.FindAction("Move", throwIfNotFound: true);
-        m_Profiler_DodgeRight = m_Profiler.FindAction("DodgeRight", throwIfNotFound: true);
-        m_Profiler_AttackLeft = m_Profiler.FindAction("AttackLeft", throwIfNotFound: true);
-        m_Profiler_AttackRight = m_Profiler.FindAction("AttackRight", throwIfNotFound: true);
-        m_Profiler_Look = m_Profiler.FindAction("Look", throwIfNotFound: true);
-        m_Profiler_DodgeLeft = m_Profiler.FindAction("DodgeLeft", throwIfNotFound: true);
+        m_Profiler = asset.FindActionMap("Profiler", true);
+        m_Profiler_Move = m_Profiler.FindAction("Move", true);
+        m_Profiler_DodgeRight = m_Profiler.FindAction("DodgeRight", true);
+        m_Profiler_AttackLeft = m_Profiler.FindAction("AttackLeft", true);
+        m_Profiler_AttackRight = m_Profiler.FindAction("AttackRight", true);
+        m_Profiler_Look = m_Profiler.FindAction("Look", true);
+        m_Profiler_DodgeLeft = m_Profiler.FindAction("DodgeLeft", true);
     }
+
+    public InputActionAsset asset { get; }
+    public ProfilerActions Profiler => new ProfilerActions(this);
 
     public void Dispose()
     {
-        UnityEngine.Object.Destroy(asset);
+        Object.Destroy(asset);
     }
 
     public InputBinding? bindingMask
@@ -193,78 +206,93 @@ public class @KnightControls : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Profiler
-    private readonly InputActionMap m_Profiler;
-    private IProfilerActions m_ProfilerActionsCallbackInterface;
-    private readonly InputAction m_Profiler_Move;
-    private readonly InputAction m_Profiler_DodgeRight;
-    private readonly InputAction m_Profiler_AttackLeft;
-    private readonly InputAction m_Profiler_AttackRight;
-    private readonly InputAction m_Profiler_Look;
-    private readonly InputAction m_Profiler_DodgeLeft;
     public struct ProfilerActions
     {
-        private @KnightControls m_Wrapper;
-        public ProfilerActions(@KnightControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Profiler_Move;
-        public InputAction @DodgeRight => m_Wrapper.m_Profiler_DodgeRight;
-        public InputAction @AttackLeft => m_Wrapper.m_Profiler_AttackLeft;
-        public InputAction @AttackRight => m_Wrapper.m_Profiler_AttackRight;
-        public InputAction @Look => m_Wrapper.m_Profiler_Look;
-        public InputAction @DodgeLeft => m_Wrapper.m_Profiler_DodgeLeft;
-        public InputActionMap Get() { return m_Wrapper.m_Profiler; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
+        private readonly KnightControls m_Wrapper;
+
+        public ProfilerActions(KnightControls wrapper)
+        {
+            m_Wrapper = wrapper;
+        }
+
+        public InputAction Move => m_Wrapper.m_Profiler_Move;
+        public InputAction DodgeRight => m_Wrapper.m_Profiler_DodgeRight;
+        public InputAction AttackLeft => m_Wrapper.m_Profiler_AttackLeft;
+        public InputAction AttackRight => m_Wrapper.m_Profiler_AttackRight;
+        public InputAction Look => m_Wrapper.m_Profiler_Look;
+        public InputAction DodgeLeft => m_Wrapper.m_Profiler_DodgeLeft;
+
+        public InputActionMap Get()
+        {
+            return m_Wrapper.m_Profiler;
+        }
+
+        public void Enable()
+        {
+            Get().Enable();
+        }
+
+        public void Disable()
+        {
+            Get().Disable();
+        }
+
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ProfilerActions set) { return set.Get(); }
+
+        public static implicit operator InputActionMap(ProfilerActions set)
+        {
+            return set.Get();
+        }
+
         public void SetCallbacks(IProfilerActions instance)
         {
             if (m_Wrapper.m_ProfilerActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnMove;
-                @DodgeRight.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeRight;
-                @DodgeRight.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeRight;
-                @DodgeRight.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeRight;
-                @AttackLeft.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackLeft;
-                @AttackLeft.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackLeft;
-                @AttackLeft.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackLeft;
-                @AttackRight.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackRight;
-                @AttackRight.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackRight;
-                @AttackRight.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackRight;
-                @Look.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnLook;
-                @DodgeLeft.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeLeft;
-                @DodgeLeft.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeLeft;
-                @DodgeLeft.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeLeft;
+                Move.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnMove;
+                Move.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnMove;
+                Move.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnMove;
+                DodgeRight.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeRight;
+                DodgeRight.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeRight;
+                DodgeRight.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeRight;
+                AttackLeft.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackLeft;
+                AttackLeft.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackLeft;
+                AttackLeft.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackLeft;
+                AttackRight.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackRight;
+                AttackRight.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackRight;
+                AttackRight.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnAttackRight;
+                Look.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnLook;
+                Look.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnLook;
+                Look.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnLook;
+                DodgeLeft.started -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeLeft;
+                DodgeLeft.performed -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeLeft;
+                DodgeLeft.canceled -= m_Wrapper.m_ProfilerActionsCallbackInterface.OnDodgeLeft;
             }
+
             m_Wrapper.m_ProfilerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Move.started += instance.OnMove;
-                @Move.performed += instance.OnMove;
-                @Move.canceled += instance.OnMove;
-                @DodgeRight.started += instance.OnDodgeRight;
-                @DodgeRight.performed += instance.OnDodgeRight;
-                @DodgeRight.canceled += instance.OnDodgeRight;
-                @AttackLeft.started += instance.OnAttackLeft;
-                @AttackLeft.performed += instance.OnAttackLeft;
-                @AttackLeft.canceled += instance.OnAttackLeft;
-                @AttackRight.started += instance.OnAttackRight;
-                @AttackRight.performed += instance.OnAttackRight;
-                @AttackRight.canceled += instance.OnAttackRight;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
-                @DodgeLeft.started += instance.OnDodgeLeft;
-                @DodgeLeft.performed += instance.OnDodgeLeft;
-                @DodgeLeft.canceled += instance.OnDodgeLeft;
+                Move.started += instance.OnMove;
+                Move.performed += instance.OnMove;
+                Move.canceled += instance.OnMove;
+                DodgeRight.started += instance.OnDodgeRight;
+                DodgeRight.performed += instance.OnDodgeRight;
+                DodgeRight.canceled += instance.OnDodgeRight;
+                AttackLeft.started += instance.OnAttackLeft;
+                AttackLeft.performed += instance.OnAttackLeft;
+                AttackLeft.canceled += instance.OnAttackLeft;
+                AttackRight.started += instance.OnAttackRight;
+                AttackRight.performed += instance.OnAttackRight;
+                AttackRight.canceled += instance.OnAttackRight;
+                Look.started += instance.OnLook;
+                Look.performed += instance.OnLook;
+                Look.canceled += instance.OnLook;
+                DodgeLeft.started += instance.OnDodgeLeft;
+                DodgeLeft.performed += instance.OnDodgeLeft;
+                DodgeLeft.canceled += instance.OnDodgeLeft;
             }
         }
     }
-    public ProfilerActions @Profiler => new ProfilerActions(this);
+
     public interface IProfilerActions
     {
         void OnMove(InputAction.CallbackContext context);

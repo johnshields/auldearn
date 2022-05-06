@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/*
+ * BossCombat
+ * Attached to Boss' Fists - triggered when they hit player.
+ */
 public class BossCombat : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)

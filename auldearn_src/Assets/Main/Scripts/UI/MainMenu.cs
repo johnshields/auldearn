@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+/*
+ * MainMenu
+ * Script that controls the MainMenu UI interaction.
+ */
 public class MainMenu : MonoBehaviour
 {
     public GameObject menuItems, confirmPanel, controlsPanel, muteBtn, unMuteBtn, credits;

@@ -2,6 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * CombatManager
+ * Script that manages the Combat between Player & Boss.
+ */
 public class CombatManager : MonoBehaviour
 {
     public static int playerHealth = 30;

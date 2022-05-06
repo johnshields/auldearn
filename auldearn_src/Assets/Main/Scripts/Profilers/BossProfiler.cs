@@ -2,7 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-// Ref: https://youtu.be/UjkSFoLxesw
+
+/*
+ * BossProfiler
+ * Script that controls Boss states - Patrol, Search, Chase & AttackMode (uses NavMesh).
+ */
 public class BossProfiler : MonoBehaviour
 {
     private static Animator _animator;
@@ -11,7 +15,7 @@ public class BossProfiler : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask groundMask, playerMask;
-    public GameObject bossFootsteps;
+    public GameObject bossFootsteps, healthBar;
 
     // patrolling
     public Vector3 walkPoint;
@@ -47,7 +51,7 @@ public class BossProfiler : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
 
-        if (!playerInSightRange && !playerInAttackRange) Patrolling();
+        if (!playerInSightRange && !playerInAttackRange) Patrol();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackMode();
     }
@@ -62,8 +66,11 @@ public class BossProfiler : MonoBehaviour
         _animator.SetBool(_death, death);
     }
 
-    private void Patrolling()
+    private void Patrol()
     {
+        healthBar.SetActive(false);
+        sightRange = 20f;
+        
         if (!_walkPointSet) SearchWalkPoint();
 
         if (_walkPointSet)
@@ -74,14 +81,14 @@ public class BossProfiler : MonoBehaviour
 
         var distanceToWalkPoint = transform.position - walkPoint;
 
-        //WalkPoint reached
+        // walkPoint reached
         if (distanceToWalkPoint.magnitude < 1f)
             _walkPointSet = false;
     }
 
     private void SearchWalkPoint()
     {
-        //Calculate random point in range
+        // calculate random point in range
         var randomZ = Random.Range(-walkPointRange, walkPointRange);
         var randomX = Random.Range(-walkPointRange, walkPointRange);
 
@@ -98,6 +105,7 @@ public class BossProfiler : MonoBehaviour
         agent.SetDestination(player.position);
         combat = true;
         sightRange = 30f;
+        healthBar.SetActive(true);
     }
 
     private void AttackMode()

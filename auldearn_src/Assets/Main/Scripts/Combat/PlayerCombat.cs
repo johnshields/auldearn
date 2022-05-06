@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/*
+ * PlayerCombat
+ * Attached to Player's Sword - triggered when it hits boss.
+ */
 public class PlayerCombat : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)

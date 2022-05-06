@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+/*
+ * PauseMenu
+ * Script that controls the PauseMenu UI interaction.
+ */
 public class PauseMenu : MonoBehaviour
 {
     private static bool _paused, _controls;

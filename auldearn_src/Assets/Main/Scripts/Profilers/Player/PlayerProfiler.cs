@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * PlayerProfiler
+ * Script that controls the Player's movement and profile.
+ */
 public class PlayerProfiler : MonoBehaviour
 {
     public float profileForce = 0.8f;
