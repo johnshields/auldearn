@@ -22,5 +22,5 @@ alt="GSA Logo" width="600" height="250"/>
 A medieval boss battle.
 
 ## Preview:
-![preview](https://github.com/johnshields/auldearn/blob/main/workings/dev_snips/preview006.png?raw=true)
+![preview](https://github.com/johnshields/auldearn/blob/main/workings/dev_snips/preview007.png?raw=true)
 
