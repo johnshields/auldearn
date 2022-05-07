@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
  */
 public class PlayerAnimAndSound : MonoBehaviour
 {
-    public static bool dodgeActive;
+    public static bool dodgeActive, dead;
     public AudioClip[] swordSFX;
     public GameObject playerFootsteps;
     private readonly float _maxSpeed = 5f;
@@ -45,6 +45,7 @@ public class PlayerAnimAndSound : MonoBehaviour
 
         if (!CombatManager.playerDead) return;
         _animator.SetTrigger(_death);
+        CombatManager.deadSound = true;
         _player.GetComponent<PlayerProfiler>().enabled = false;
     }
 

@@ -14,9 +14,9 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_FogMode: 2
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.114631325, g: 0.10074163, b: 0.104053155, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2737,7 +2737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: -21.400005}
+  m_AnchoredPosition: {x: 40, y: -45}
   m_SizeDelta: {x: 400, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1306908799
@@ -2773,17 +2773,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: 'LeftStick UP:              FORWARD
+  m_Text: 'LEFTSTICK:         MOVEMENT
 
-    LelftStick DOWN:    BACK
-
-    LeftStick
-    RIGHT:      RIGHT
-
-    LeftStick LEFT:          LEFT
-
-    RightStick:                
-    ROTATE'
+    RIGHTSTICK:     ROTATE CAMERA'
 --- !u!222 &1306908800
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3098,7 +3090,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 255, y: -21.4}
+  m_AnchoredPosition: {x: 245, y: -27.6}
   m_SizeDelta: {x: 400, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1399563658
@@ -3133,8 +3125,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 2
-  m_Text: "R1:                 CHARGE\nSQUARE:    DODGE\nR2:  \t          RIGHT ATTACK\nL2:                
+    m_LineSpacing: 1.5
+  m_Text: "R1:       RIGHT DODGE\nL1:        LEFT DODGE   \nR2:       RIGHT ATTACK\nL2:       
     LEFT ATTACK"
 --- !u!222 &1399563659
 CanvasRenderer:

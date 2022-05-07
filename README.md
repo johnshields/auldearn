@@ -24,5 +24,5 @@ A medieval boss battle.
 ## Preview:
 ![preview](https://github.com/johnshields/auldearn/blob/main/workings/dev_snips/preview007.png?raw=true)
 
-#### [Gameplay Video](https://www.youtube.com/watch?v=jf7u-vTyMeA)
+#### [Gameplay Video](https://www.youtube.com/watch?v=JcL8frIL64c)
 

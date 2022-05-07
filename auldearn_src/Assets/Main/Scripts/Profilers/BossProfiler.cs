@@ -165,7 +165,8 @@ public class BossProfiler : MonoBehaviour
 
     private IEnumerator Death()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         AnimationState(false, false, false, false, false, true);
+        CombatManager.deadSound = true;
     }
 }

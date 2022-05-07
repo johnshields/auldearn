@@ -9,6 +9,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+/Recordings/
 /.idea/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored

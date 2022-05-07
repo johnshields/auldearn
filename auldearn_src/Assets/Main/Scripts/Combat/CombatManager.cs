@@ -10,7 +10,7 @@ public class CombatManager : MonoBehaviour
 {
     public static int playerHealth = 30;
     public static int bossHealth = 50;
-    public static bool playerDead, bossDead, gameOver;
+    public static bool playerDead, bossDead, gameOver, deadSound;
     public AudioClip[] deathSFX;
     public GameObject victoryPanel, defeatPanel, playerHB, bossHB, btnOptions, bars;
     public GameObject[] fills;
@@ -30,6 +30,7 @@ public class CombatManager : MonoBehaviour
         gameOver = false;
         playerDead = false;
         bossDead = false;
+        deadSound = false;
     }
 
     private void Start()
@@ -74,7 +75,7 @@ public class CombatManager : MonoBehaviour
     private IEnumerator EndScreen(GameObject panel, int sound)
     {
         yield return new WaitForSeconds(1f);
-        if (!_played)
+        if (!_played && deadSound)
         {
             _audio.PlayOneShot(deathSFX[sound]);
             _played = true;
